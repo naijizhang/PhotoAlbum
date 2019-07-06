@@ -11,12 +11,20 @@ export default class Home extends Component {
   }
   reorder = () => {
     const currentArr = this.state.dataSource;
-    currentArr.sort(function() {
-      return 0.5 - Math.random();
-    });
+    this.randomizeArray(currentArr, currentArr.length);
     this.setState({
       dataSource: currentArr
     });
+  };
+  randomizeArray = (array, n) => {
+    if (n <= 1) {
+      return;
+    }
+    const index = Math.floor(Math.random() * n);
+    const tmp = array[n - 1];
+    array[n - 1] = array[index];
+    array[index] = tmp;
+    this.randomizeArray(array, n - 1);
   };
   render() {
     return (
