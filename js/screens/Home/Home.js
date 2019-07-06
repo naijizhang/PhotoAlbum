@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import PhotoItem from "../../components/PhotoItem";
 export default class Home extends Component {
@@ -9,7 +9,15 @@ export default class Home extends Component {
       dataSource: props.data
     };
   }
-
+  reorder = () => {
+    const currentArr = this.state.dataSource;
+    currentArr.sort(function() {
+      return 0.5 - Math.random();
+    });
+    this.setState({
+      dataSource: currentArr
+    });
+  };
   render() {
     return (
       <View>
@@ -31,6 +39,9 @@ export default class Home extends Component {
           )}
           keyExtractor={(item, index) => index.toString()}
         />
+        <TouchableOpacity style={styles.button} onPress={this.reorder}>
+          <Text style={styles.buttonText}>Reorder the list</Text>
+        </TouchableOpacity>
       </View>
     );
   }
